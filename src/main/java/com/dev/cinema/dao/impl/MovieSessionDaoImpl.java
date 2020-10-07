@@ -1,6 +1,7 @@
 package com.dev.cinema.dao.impl;
 
 import com.dev.cinema.dao.MovieSessionDao;
+import com.dev.cinema.exceptions.DataProcessingException;
 import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.MovieSession;
 import com.dev.cinema.util.HibernateUtil;
@@ -24,7 +25,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             query.setParameter("endTime", date.atTime(LocalTime.MAX));
             return query.getResultList();
         } catch (Exception e) {
-            throw new RuntimeException("Couldn't get available sessions", e);
+            throw new DataProcessingException("Couldn't get available sessions", e);
         }
     }
 
@@ -42,7 +43,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new RuntimeException("Can't insert movie session", e);
+            throw new RuntimeException("Can't insert movie session " + movieSession, e);
         } finally {
             if (session != null) {
                 session.close();
