@@ -25,10 +25,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public User register(String email, String password) {
         User user = new User();
-        byte[] salt = HashUtil.getSalt();
         user.setEmail(email);
-        user.setPassword(HashUtil.hashPassword(password, salt));
-        user.setSalt(salt);
+        user.setSalt(HashUtil.getSalt());
+        user.setPassword(HashUtil.hashPassword(password, user.getSalt()));
         return userService.add(user);
     }
 
