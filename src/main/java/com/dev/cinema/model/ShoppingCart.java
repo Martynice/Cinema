@@ -1,5 +1,6 @@
 package com.dev.cinema.model;
 
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +13,6 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.List;
 
 @Entity
 @Data
@@ -26,7 +26,5 @@ public class ShoppingCart {
     @OneToMany
     private List<Ticket> tickets;
     @OneToOne
-    @MapsId
-    @JoinColumn(name = "shopping_cart_id")
     private User user;
 }
