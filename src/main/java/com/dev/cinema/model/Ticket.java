@@ -15,12 +15,8 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "shopping_cart_id")
+    @ManyToOne
     private MovieSession movieSession;
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "shopping_cart_id")
+    @ManyToOne
     private User user;
 }
