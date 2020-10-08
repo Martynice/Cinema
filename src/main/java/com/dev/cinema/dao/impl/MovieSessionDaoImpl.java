@@ -10,20 +10,21 @@ import java.time.LocalTime;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 
 @Dao
 public class MovieSessionDaoImpl implements MovieSessionDao {
     @Override
     public List<MovieSession> findAvailableSessions(Long movieId, LocalDate date) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<MovieSession> query = session.createQuery(
-                    "FROM MovieSession WHERE movie_id = :movieId "
-                    + "AND showTime BETWEEN :startTime AND :endTime", MovieSession.class);
-            query.setParameter("movieId", movieId);
-            query.setParameter("startTime", date.atStartOfDay());
-            query.setParameter("endTime", date.atTime(LocalTime.MAX));
-            return query.getResultList();
+            return session.createQuery("FROM MovieSession ms "
+                            + "JOIN FETCH ms.cinemaHall "
+                            + "JOIN FETCH ms.movie "
+                            + "WHERE movie_id = :movieId "
+                            + "AND showTime BETWEEN :startTime AND :endTime", MovieSession.class)
+                    .setParameter("movieId", movieId)
+                    .setParameter("startTime", date.atStartOfDay())
+                    .setParameter("endTime", date.atTime(LocalTime.MAX))
+                    .getResultList();
         } catch (Exception e) {
             throw new DataProcessingException("Couldn't get available sessions with id = " + movieId
                     + " and date = " + date, e);
