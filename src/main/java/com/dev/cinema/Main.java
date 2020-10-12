@@ -10,6 +10,7 @@ import com.dev.cinema.security.AuthenticationService;
 import com.dev.cinema.service.CinemaHallService;
 import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.MovieSessionService;
+import com.dev.cinema.service.OrderService;
 import com.dev.cinema.service.ShoppingCartService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -54,7 +55,9 @@ public class Main {
                 = (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
         shoppingCartService.addSession(movieSession, admin);
         System.out.println(shoppingCartService.getByUser(admin));
-        shoppingCartService.clear(shoppingCartService.getByUser(admin));
-        System.out.println(shoppingCartService.getByUser(admin));
+
+        OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
+        orderService.completeOrder(shoppingCartService.getByUser(admin).getTickets(), admin);
+        orderService.getOrderHistory(admin).forEach(System.out::println);
     }
 }
