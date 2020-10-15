@@ -16,7 +16,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
 
     @Override
     public ShoppingCart add(ShoppingCart shoppingCart) {
-        logger.info("Trying to add shopping cart" + shoppingCart);
+        logger.info("Trying to add shopping cart " + shoppingCart);
         Transaction transaction = null;
         Session session = null;
         try {
