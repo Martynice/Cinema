@@ -6,11 +6,14 @@ import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.User;
 import com.dev.cinema.util.HibernateUtil;
 import java.util.Optional;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 @Dao
 public class UserDaoImpl implements UserDao {
+    private static final Logger logger = Logger.getLogger(ShoppingCartDaoImpl.class);
+
     @Override
     public User add(User user) {
         Transaction transaction = null;
@@ -20,6 +23,7 @@ public class UserDaoImpl implements UserDao {
             transaction = session.beginTransaction();
             session.save(user);
             transaction.commit();
+            logger.info("User was successfully added " + user);
             return user;
         } catch (Exception e) {
             if (transaction != null) {
@@ -35,6 +39,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> findByEmail(String email) {
+        logger.info("Trying to get user by email " + email);
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("FROM User WHERE email = :email ", User.class)
                     .setParameter("email", email)
