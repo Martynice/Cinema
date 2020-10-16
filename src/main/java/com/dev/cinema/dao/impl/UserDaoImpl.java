@@ -16,7 +16,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User add(User user) {
-        logger.info("Trying to add user " + user);
         Transaction transaction = null;
         Session session = null;
         try {
@@ -24,7 +23,7 @@ public class UserDaoImpl implements UserDao {
             transaction = session.beginTransaction();
             session.save(user);
             transaction.commit();
-            logger.info("User was successfully added");
+            logger.info("User was successfully added " + user);
             return user;
         } catch (Exception e) {
             if (transaction != null) {

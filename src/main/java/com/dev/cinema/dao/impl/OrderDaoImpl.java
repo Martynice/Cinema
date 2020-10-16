@@ -17,7 +17,6 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public Order add(Order order) {
-        logger.info("Trying to add order " + order);
         Transaction transaction = null;
         Session session = null;
         try {
@@ -25,7 +24,7 @@ public class OrderDaoImpl implements OrderDao {
             transaction = session.beginTransaction();
             session.save(order);
             transaction.commit();
-            logger.info("Order was successfully added");
+            logger.info("Order was successfully added " + order);
             return order;
         } catch (Exception e) {
             if (transaction != null) {

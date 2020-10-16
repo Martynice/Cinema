@@ -15,7 +15,6 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public Ticket add(Ticket ticket) {
-        logger.info("Trying to add ticket " + ticket);
         Transaction transaction = null;
         Session session = null;
         try {
@@ -23,7 +22,7 @@ public class TicketDaoImpl implements TicketDao {
             transaction = session.beginTransaction();
             session.save(ticket);
             transaction.commit();
-            logger.info("Ticket was successfully added");
+            logger.info("Ticket was successfully added " + ticket);
             return ticket;
         } catch (Exception e) {
             if (transaction != null) {

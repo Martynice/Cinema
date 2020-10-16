@@ -37,7 +37,6 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
 
     @Override
     public MovieSession add(MovieSession movieSession) {
-        logger.info("Trying to add movie session " + movieSession);
         Transaction transaction = null;
         Session session = null;
         try {
@@ -45,7 +44,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             transaction = session.beginTransaction();
             session.save(movieSession);
             transaction.commit();
-            logger.info("Movie session was successfully added");
+            logger.info("Movie session was successfully added " + movieSession);
             return movieSession;
         } catch (Exception e) {
             if (transaction != null) {

@@ -16,7 +16,6 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
 
     @Override
     public ShoppingCart add(ShoppingCart shoppingCart) {
-        logger.info("Trying to add shopping cart " + shoppingCart);
         Transaction transaction = null;
         Session session = null;
         try {
@@ -24,7 +23,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
             transaction = session.beginTransaction();
             session.save(shoppingCart);
             transaction.commit();
-            logger.info("Shopping cart was successfully added");
+            logger.info("Shopping cart was successfully added " + shoppingCart);
             return shoppingCart;
         } catch (Exception e) {
             if (transaction != null) {
@@ -53,7 +52,6 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
 
     @Override
     public void update(ShoppingCart shoppingCart) {
-        logger.info("Trying to update shopping cart" + shoppingCart);
         Transaction transaction = null;
         Session session = null;
         try {
@@ -61,7 +59,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
             transaction = session.beginTransaction();
             session.update(shoppingCart);
             transaction.commit();
-            logger.info("ShoppingCart was successfully updated");
+            logger.info("ShoppingCart was successfully updated " + shoppingCart);
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();

@@ -17,7 +17,6 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
 
     @Override
     public CinemaHall add(CinemaHall cinemaHall) {
-        logger.info("Trying to add cinema hall " + cinemaHall);
         Transaction transaction = null;
         Session session = null;
         try {
@@ -25,7 +24,7 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
             transaction = session.beginTransaction();
             session.save(cinemaHall);
             transaction.commit();
-            logger.info("Cinema hall was successfully added");
+            logger.info("Cinema hall was successfully added " + cinemaHall);
             return cinemaHall;
         } catch (Exception e) {
             if (transaction != null) {
@@ -41,7 +40,7 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
 
     @Override
     public List<CinemaHall> getAll() {
-        logger.info("Trying to get add cinema halls");
+        logger.info("Trying to get all cinema halls");
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<CinemaHall> query = session.createQuery("from CinemaHall ", CinemaHall.class);
             return query.getResultList();
