@@ -11,7 +11,7 @@ import org.hibernate.Transaction;
 
 @Dao
 public class TicketDaoImpl implements TicketDao {
-    private static final Logger logger = Logger.getLogger(ShoppingCartDaoImpl.class);
+    private static final Logger logger = Logger.getLogger(TicketDaoImpl.class);
 
     @Override
     public Ticket add(Ticket ticket) {

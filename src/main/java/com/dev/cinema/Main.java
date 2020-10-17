@@ -1,6 +1,5 @@
 package com.dev.cinema;
 
-import com.dev.cinema.dao.impl.ShoppingCartDaoImpl;
 import com.dev.cinema.exceptions.AuthenticationException;
 import com.dev.cinema.lib.Injector;
 import com.dev.cinema.model.CinemaHall;
@@ -19,7 +18,7 @@ import org.apache.log4j.Logger;
 
 public class Main {
     private static Injector injector = Injector.getInstance("com.dev.cinema");
-    private static final Logger logger = Logger.getLogger(ShoppingCartDaoImpl.class);
+    private static final Logger logger = Logger.getLogger(Main.class);
 
     public static void main(String[] args) {
         Movie movie = new Movie();

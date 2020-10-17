@@ -12,7 +12,7 @@ import org.hibernate.Transaction;
 
 @Dao
 public class UserDaoImpl implements UserDao {
-    private static final Logger logger = Logger.getLogger(ShoppingCartDaoImpl.class);
+    private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
 
     @Override
     public User add(User user) {
