@@ -2,28 +2,33 @@ package com.dev.cinema.dao.impl;
 
 import com.dev.cinema.dao.UserDao;
 import com.dev.cinema.exceptions.DataProcessingException;
-import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.User;
-import com.dev.cinema.util.HibernateUtil;
 import java.util.Optional;
-import org.apache.log4j.Logger;
+import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
-@Dao
+@Repository
+@Log4j
 public class UserDaoImpl implements UserDao {
-    private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
+    private final SessionFactory sessionFactory;
+
+    public UserDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public User add(User user) {
         Transaction transaction = null;
         Session session = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             session.save(user);
             transaction.commit();
-            logger.info("User was successfully added " + user);
+            log.info("User was successfully added " + user);
             return user;
         } catch (Exception e) {
             if (transaction != null) {
@@ -39,8 +44,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> findByEmail(String email) {
-        logger.info("Trying to get user by email " + email);
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        log.info("Trying to get user by email " + email);
+        try (Session session = sessionFactory.openSession()) {
             return session.createQuery("FROM User WHERE email = :email ", User.class)
                     .setParameter("email", email)
                     .uniqueResultOptional();

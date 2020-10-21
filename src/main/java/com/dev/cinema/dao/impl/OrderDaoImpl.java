@@ -2,29 +2,34 @@ package com.dev.cinema.dao.impl;
 
 import com.dev.cinema.dao.OrderDao;
 import com.dev.cinema.exceptions.DataProcessingException;
-import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.Order;
 import com.dev.cinema.model.User;
-import com.dev.cinema.util.HibernateUtil;
 import java.util.List;
-import org.apache.log4j.Logger;
+import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
-@Dao
+@Repository
+@Log4j
 public class OrderDaoImpl implements OrderDao {
-    private static final Logger logger = Logger.getLogger(OrderDaoImpl.class);
+    private final SessionFactory sessionFactory;
+
+    public OrderDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public Order add(Order order) {
         Transaction transaction = null;
         Session session = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             session.save(order);
             transaction.commit();
-            logger.info("Order was successfully added " + order);
+            log.info("Order was successfully added " + order);
             return order;
         } catch (Exception e) {
             if (transaction != null) {
@@ -40,8 +45,8 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<Order> getOrderHistory(User user) {
-        logger.info("Trying to get order history by user " + user);
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        log.info("Trying to get order history by user " + user);
+        try (Session session = sessionFactory.openSession()) {
             return session.createQuery("SELECT DISTINCT o "
                     + "FROM Order o "
                     + "JOIN FETCH o.user "
