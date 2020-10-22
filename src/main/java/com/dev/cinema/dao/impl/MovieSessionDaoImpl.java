@@ -2,24 +2,31 @@ package com.dev.cinema.dao.impl;
 
 import com.dev.cinema.dao.MovieSessionDao;
 import com.dev.cinema.exceptions.DataProcessingException;
-import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.MovieSession;
-import com.dev.cinema.util.HibernateUtil;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import org.apache.log4j.Logger;
+import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-@Dao
+@Repository
+@Log4j
 public class MovieSessionDaoImpl implements MovieSessionDao {
-    private static final Logger logger = Logger.getLogger(MovieSessionDaoImpl.class);
+    private final SessionFactory sessionFactory;
+
+    @Autowired
+    public MovieSessionDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public List<MovieSession> findAvailableSessions(Long movieId, LocalDate date) {
-        logger.info("Trying to find available movie sessions");
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        log.info("Trying to find available movie sessions");
+        try (Session session = sessionFactory.openSession()) {
             return session.createQuery("FROM MovieSession ms "
                             + "JOIN FETCH ms.cinemaHall "
                             + "JOIN FETCH ms.movie "
@@ -40,11 +47,11 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
         Transaction transaction = null;
         Session session = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             session.save(movieSession);
             transaction.commit();
-            logger.info("Movie session was successfully added " + movieSession);
+            log.info("Movie session was successfully added " + movieSession);
             return movieSession;
         } catch (Exception e) {
             if (transaction != null) {
