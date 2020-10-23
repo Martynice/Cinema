@@ -17,7 +17,6 @@ import org.springframework.stereotype.Repository;
 public class CinemaHallDaoImpl implements CinemaHallDao {
     private final SessionFactory sessionFactory;
 
-    @Autowired
     public CinemaHallDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
@@ -42,6 +41,14 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
             if (session != null) {
                 session.close();
             }
+        }
+    }
+
+    @Override
+    public CinemaHall get(Long id) {
+        log.info("Trying to get cinema hall with id " + id);
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(CinemaHall.class, id);
         }
     }
 

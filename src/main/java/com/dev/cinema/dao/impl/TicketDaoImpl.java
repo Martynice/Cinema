@@ -15,7 +15,6 @@ import org.springframework.stereotype.Repository;
 public class TicketDaoImpl implements TicketDao {
     private final SessionFactory sessionFactory;
 
-    @Autowired
     public TicketDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

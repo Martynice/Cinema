@@ -18,7 +18,6 @@ import org.springframework.stereotype.Repository;
 public class MovieSessionDaoImpl implements MovieSessionDao {
     private final SessionFactory sessionFactory;
 
-    @Autowired
     public MovieSessionDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

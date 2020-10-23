@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 public class MovieSessionServiceImpl implements MovieSessionService {
     private final MovieSessionDao movieSessionDao;
 
-    @Autowired
     public MovieSessionServiceImpl(MovieSessionDao movieSessionDao) {
         this.movieSessionDao = movieSessionDao;
     }

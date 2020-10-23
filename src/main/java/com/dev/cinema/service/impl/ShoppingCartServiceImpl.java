@@ -16,7 +16,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final ShoppingCartDao shoppingCartDao;
     private final TicketDao ticketDao;
 
-    @Autowired
     public ShoppingCartServiceImpl(ShoppingCartDao shoppingCartDao, TicketDao ticketDao) {
         this.shoppingCartDao = shoppingCartDao;
         this.ticketDao = ticketDao;

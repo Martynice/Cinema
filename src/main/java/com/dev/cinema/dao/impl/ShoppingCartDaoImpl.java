@@ -16,7 +16,6 @@ import org.springframework.stereotype.Repository;
 public class ShoppingCartDaoImpl implements ShoppingCartDao {
     private final SessionFactory sessionFactory;
 
-    @Autowired
     public ShoppingCartDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

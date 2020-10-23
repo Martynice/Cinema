@@ -17,7 +17,6 @@ import org.springframework.stereotype.Repository;
 public class OrderDaoImpl implements OrderDao {
     private final SessionFactory sessionFactory;
 
-    @Autowired
     public OrderDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

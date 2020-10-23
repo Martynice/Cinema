@@ -16,7 +16,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserService userService;
     private final ShoppingCartService shoppingCartService;
 
-    @Autowired
     public AuthenticationServiceImpl(UserService userService,
                                      ShoppingCartService shoppingCartService) {
         this.userService = userService;
