@@ -7,7 +7,6 @@ import com.dev.cinema.service.UserService;
 import com.dev.cinema.util.HashUtil;
 import java.util.Optional;
 import lombok.extern.log4j.Log4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
