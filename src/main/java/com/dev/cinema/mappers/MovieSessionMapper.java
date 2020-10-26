@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MovieSessionMapper {
-    public final CinemaHallService cinemaHallService;
-    public final MovieService movieService;
+    private final CinemaHallService cinemaHallService;
+    private final MovieService movieService;
 
     public MovieSessionMapper(CinemaHallService cinemaHallService, MovieService movieService) {
         this.cinemaHallService = cinemaHallService;
