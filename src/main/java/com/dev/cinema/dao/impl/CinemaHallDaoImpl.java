@@ -9,7 +9,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Repository;
 public class CinemaHallDaoImpl implements CinemaHallDao {
     private final SessionFactory sessionFactory;
 
-    @Autowired
     public CinemaHallDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
@@ -42,6 +40,14 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
             if (session != null) {
                 session.close();
             }
+        }
+    }
+
+    @Override
+    public CinemaHall get(Long id) {
+        log.info("Trying to get cinema hall with id " + id);
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(CinemaHall.class, id);
         }
     }
 

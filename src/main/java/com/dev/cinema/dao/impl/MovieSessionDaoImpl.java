@@ -10,7 +10,6 @@ import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Repository;
 public class MovieSessionDaoImpl implements MovieSessionDao {
     private final SessionFactory sessionFactory;
 
-    @Autowired
     public MovieSessionDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
