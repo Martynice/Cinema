@@ -62,4 +62,12 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             }
         }
     }
+
+    @Override
+    public MovieSession get(Long id) {
+        log.info("Trying to get movie session with id " + id);
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(MovieSession.class, id);
+        }
+    }
 }
