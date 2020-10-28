@@ -51,4 +51,12 @@ public class UserDaoImpl implements UserDao {
                     .uniqueResultOptional();
         }
     }
+
+    @Override
+    public User get(Long id) {
+        log.info("Trying to get user with id " + id);
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(User.class, id);
+        }
+    }
 }
