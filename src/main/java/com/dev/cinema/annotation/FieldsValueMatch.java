@@ -16,10 +16,4 @@ public @interface FieldsValueMatch {
     Class<? extends Payload>[] payload() default {};
     String field();
     String fieldMatch();
-
-    @Target({ElementType.TYPE})
-    @Retention(RetentionPolicy.RUNTIME)
-    @interface List {
-        FieldsValueMatch[] value();
-    }
 }
